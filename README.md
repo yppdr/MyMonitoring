@@ -11,3 +11,8 @@ Les identifiants par défaut pour accéder au panel sont:
 Utilisateur : contact@defaut.fr
 Mot de passe : admin
 Il est conseillé de supprimer ce compte et d'en créer un, avec votre adresse mail, pour recevoir les alertes.
+
+Pour la cron, il faut la mettre toute les une minutes. Elle permet de détecter les serveurs online/offline et d'envoyer une notification si c'est offline.
+Le fichier pôur la crontab est crontab.php
+
+*/1 * * * * [votrechemin]/crontab.php
