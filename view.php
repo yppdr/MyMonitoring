@@ -18,128 +18,46 @@ include 'db_connect.php';
 
   <!-- Main content -->
  <div class="container">
-
-
-
 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-
-
-
-<?php $id = $_GET['id']; ?>
-<?php
-
-try
-
-{
-
-    // On se connecte à MySQL
-
-$bdd = new PDO('mysql:host='.$bdd_host.';dbname='.$bdd_db.';charset=utf8', $bdd_user, $bdd_password);
-
-}
-
-catch(Exception $e)
-
-{
-
-    // En cas d'erreur, on affiche un message et on arrête tout
-
-        die('Erreur : '.$e->getMessage());
-
-}
-
-
-// Si tout va bien, on peut continuer
-
-
+<?php 
+$id = $_GET['id']; 
 // On récupère tout le contenu de la table jeux_video
 
 $reponse = $bdd->prepare('SELECT * FROM `servers` WHERE `id`= ?');
 $reponse->execute(array($id));
 
-
 // On affiche chaque entrée une à une
 
 while ($donnees = $reponse->fetch())
-
 {
 
 ?>
+  <br /><br />
+  <?php
 
-<br /><br />
-<?php
+  if ($donnees['user'] != $_SESSION['login']){
+    echo '<META http-equiv="refresh" content="0; URL=index.php">';
+  }
 
-if ($donnees['user'] != $_SESSION['login']){
-
-echo '<META http-equiv="refresh" content="0; URL=index.php">';
-
-}
-else {
-
-}
-
-
-
-
-
-
-
-
-$ip = $donnees['IP'];
-$port = $donnees['port'];
-if (!$socket = @fsockopen($ip, $port, $errno, $errstr, 30))
-
-{
-echo '
-
-
-<div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                Votre serveur ne semble plus en ligne.
-              </div>
-
-
-
-
-
-
-
-';
-}
-else
-{ echo '
-
-<div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> En ligne</h4>
-                Votre serveur est en ligne !
-              </div>
-
-
-
-
-
-
-'; fclose($socket);
-}
-
- ?>
-
-
-
-<?php
-
-
-
+  $ip = $donnees['IP'];
+  $port = $donnees['port'];
+  if (!$socket = @fsockopen($ip, $port, $errno, $errstr, 30)) {
+    echo '<div class="alert alert-danger alert-dismissible">
+             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            Votre serveur ne semble plus en ligne.
+          </div>';
+    } else{ 
+      echo '<div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h4><i class="icon fa fa-check"></i> En ligne</h4>
+              Votre serveur est en ligne !
+            </div>'; fclose($socket);
+    }
 }
 $reponse->closeCursor(); // Termine le traitement de la requête
 ?>
-
-
-
-
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div>

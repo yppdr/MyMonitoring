@@ -84,7 +84,7 @@ $user = $_SESSION['login'];
 					</center>
 					<font color "red"> * = Obligatoire</font>
 			</div>
-	</form>
+		</form>
 
 				</div><!-- /.box-body -->
 			  </div><!-- /.box -->
