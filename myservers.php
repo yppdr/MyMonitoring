@@ -50,10 +50,7 @@ catch(Exception $e)
 }
 
 
-// Si tout va bien, on peut continuer
 
-
-// On récupère tout le contenu de la table jeux_video
 
 $reponse = $bdd->prepare('SELECT * FROM `servers` WHERE `user`= ?');
 $reponse->execute(array($user));
