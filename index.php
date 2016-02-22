@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-include 'db_connect.php';
+require_once('db_connect.php');
 ?>
 
 <!-- Content Wrapper. Contains page content -->
